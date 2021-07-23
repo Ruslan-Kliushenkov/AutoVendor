@@ -77,6 +77,10 @@ public class UserControl {
     public void redactAuto() {
         System.out.println("Введите id авто для изменения");
         int id = read.read();
+        if (!carDao.checkExistById(id)){
+            System.out.println("Авто не найдено");
+            redactAuto();
+        }
         System.out.println("Введите новое название");
         String newTitle = read.readLine();
         System.out.println("Введите новую цену");
@@ -93,6 +97,10 @@ public class UserControl {
     public void findById() {
         System.out.println("Введите id для поиска");
         int id = read.read();
+        if (!carDao.checkExistById(id)){
+            System.out.println("Авто не найдено");
+            findById();
+        }
         System.out.println(carDao.getCarById(id));
         cmdList();
     }
@@ -101,6 +109,10 @@ public class UserControl {
     public void findByName() {
         System.out.println("Ведите название для поиска");
         String title = read.readLine();
+        if (!carDao.checkExistByName(title)){
+            System.out.println("Авто не найдено");
+            findByName();
+        }
         System.out.println(carDao.getCarByName(title));
         cmdList();
     }
@@ -128,6 +140,10 @@ public class UserControl {
     public void delete() {
         System.out.println("Введите id для удаления");
         int id = read.read();
+        if (!carDao.checkExistById(id)){
+            System.out.println("Авто не найдено");
+            delete();
+        }
         carDao.deleteCar(id);
         cmdList();
     }

@@ -163,4 +163,54 @@ public class CarDao {
             return session.createQuery("from Car", Car.class).list();
         }
     }
+
+    public boolean checkExistById(int id){
+        boolean result = false;
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = " FROM Car C WHERE C.id = :carId";
+            Query query = session.createQuery(hql);
+            query.setParameter("carId", id);
+            List results = query.getResultList();
+
+            if (results != null && !results.isEmpty()) {
+                result = true;
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean checkExistByName(String title){
+        Transaction transaction = null;
+        boolean answer = false;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = " FROM Car C WHERE C.title = :titleCar";
+            Query query = session.createQuery(hql);
+            query.setParameter("titleCar", title);
+            List results = query.getResultList();
+
+            if (results != null && !results.isEmpty()) {
+                answer = true;
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return answer;
+    }
 }
