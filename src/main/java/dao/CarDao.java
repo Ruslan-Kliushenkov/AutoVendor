@@ -39,13 +39,15 @@ public class CarDao {
             transaction = session.beginTransaction();
 
 
-            String hql = "UPDATE Car set title = :newTitle , price = :newPrice , gear_type = :newGearType , fuel_volume = :newFuelVolume" + "WHERE id = :carId";
+            String hql = "UPDATE Car set title = :newTitle," + "price = :newPrice," + " gear_type = :newGearType," + " fuel_volume = :newFuelVolume" + " WHERE id = :carId";
             Query query = session.createQuery(hql);
-            query.setParameter("title", newTitle);
+            query.setParameter("newTitle", newTitle);
             query.setParameter("newPrice", newPrice);
             query.setParameter("newGearType", newGearType);
             query.setParameter("newFuelVolume", newFuelVolume);
             query.setParameter("carId", id);
+            int result = query.executeUpdate();
+            System.out.println("Rows affected: " + result);
 
             transaction.commit();
         } catch (Exception e) {

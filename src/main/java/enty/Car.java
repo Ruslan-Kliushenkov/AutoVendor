@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import javax.persistence.Entity;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name= "cars")
@@ -25,10 +27,10 @@ public class Car {
     private int price;
 
     @Column(name="date_manufacture")
-    private String dateManufacture;
+    private LocalDate dateManufacture;
 
     @Column(name="sell_date")
-    private String sellDate;
+    private LocalDate sellDate;
 
     @Column(name = "gear_type")
     private String gearType;
@@ -39,7 +41,7 @@ public class Car {
     public Car() {
     }
 
-    public Car(int id, String title, int price, String dateManufacture, String sellDate, String gearType, int fuelVolume) {
+    public Car(int id, String title, int price, LocalDate dateManufacture, LocalDate sellDate, String gearType, int fuelVolume) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -73,19 +75,19 @@ public class Car {
         this.price = price;
     }
 
-    public String getDateManufacture() {
+    public LocalDate getDateManufacture() {
         return dateManufacture;
     }
 
-    public void setDateManufacture(String dateManufacture) {
+    public void setDateManufacture(LocalDate dateManufacture) {
         this.dateManufacture = dateManufacture;
     }
 
-    public String getSellDate() {
+    public LocalDate getSellDate() {
         return sellDate;
     }
 
-    public void setSellDate(String sellDate) {
+    public void setSellDate(LocalDate sellDate) {
         this.sellDate = sellDate;
     }
 

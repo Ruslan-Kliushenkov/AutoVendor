@@ -6,6 +6,8 @@ import lombok.SneakyThrows;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class UserControl {
     BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
@@ -60,15 +62,15 @@ public class UserControl {
         System.out.println("Введите название авто");
         car.setTitle(read.readLine());
         System.out.println("Введите цену авто");
-        car.setPrice(read.read());
-        System.out.println("Введите дату производства");
-        car.setDateManufacture(read.readLine());
-        System.out.println("Введите дату продажи");
-        car.setSellDate(read.readLine());
+        car.setPrice(Integer.parseInt(read.readLine()));
+        System.out.println("Введите дату производства в формате \"2015-02-20\"");
+        car.setDateManufacture(LocalDate.parse(read.readLine()));
+        System.out.println("Введите дату продажи в формате \"2015-02-20\"");
+        car.setSellDate(LocalDate.parse(read.readLine()));
         System.out.println("Введите тип двигателя");
         car.setGearType(read.readLine());
         System.out.println("Введите объем топлива");
-        car.setFuelVolume(read.read());
+        car.setFuelVolume(Integer.parseInt(read.readLine()));
         carDao.createCar(car);
         cmdList();
     }
@@ -76,7 +78,7 @@ public class UserControl {
     @SneakyThrows
     public void redactAuto() {
         System.out.println("Введите id авто для изменения");
-        int id = read.read();
+        int id = Integer.parseInt(read.readLine());;
         if (!carDao.checkExistById(id)){
             System.out.println("Авто не найдено");
             redactAuto();
@@ -84,11 +86,11 @@ public class UserControl {
         System.out.println("Введите новое название");
         String newTitle = read.readLine();
         System.out.println("Введите новую цену");
-        int newPrice = read.read();
+        int newPrice = Integer.parseInt(read.readLine());
         System.out.println("Введите новый тип двигателя");
         String newGearType = read.readLine();
         System.out.println("Введите новый объем топлива");
-        int newFuelVolume = read.read();
+        int newFuelVolume = Integer.parseInt(read.readLine());
         carDao.redactCar(id, newTitle, newPrice, newGearType, newFuelVolume);
         cmdList();
     }
@@ -96,7 +98,7 @@ public class UserControl {
     @SneakyThrows
     public void findById() {
         System.out.println("Введите id для поиска");
-        int id = read.read();
+        int id = (Integer.parseInt(read.readLine()));
         if (!carDao.checkExistById(id)){
             System.out.println("Авто не найдено");
             findById();
@@ -120,9 +122,9 @@ public class UserControl {
     @SneakyThrows
     public void findPriceRange() {
         System.out.println("Введите нижний порог цены");
-        int start = read.read();
+        int start = Integer.parseInt(read.readLine());
         System.out.println("Введите верхний порог цены");
-        int finish = read.read();
+        int finish = Integer.parseInt(read.readLine());
         for (Car c : carDao.getCarsByRange(start,finish)){
             System.out.println(c);
         }
@@ -139,7 +141,7 @@ public class UserControl {
     @SneakyThrows
     public void delete() {
         System.out.println("Введите id для удаления");
-        int id = read.read();
+        int id = Integer.parseInt(read.readLine());
         if (!carDao.checkExistById(id)){
             System.out.println("Авто не найдено");
             delete();
